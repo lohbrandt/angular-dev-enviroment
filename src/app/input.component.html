@@ -1,0 +1,31 @@
+<form #formRef="ngForm" (ngSubmit)="onSubmit(formRef.value)">
+  <fieldset ngModelGroup="login">
+    <legend>Login</legend>
+    <div>
+      <label for="username">Username:</label>
+      <input
+        required
+        minlength="3"
+        type="text"
+        [(ngModel)]="username"
+        #usernameRef="ngModel"
+        name="username"
+      />
+    </div>
+    <div>
+      <label for="password">Password:</label>
+      <input type="password" ngModel name="password" />
+    </div>
+  </fieldset>
+  <br />
+  Username is: {{ username }} <br />
+  Form valid is {{ usernameRef.errors ? false : true }}
+  <div *ngIf="usernameRef.errors?.minlength">
+    Need {{ usernameRef.errors?.minlength.requiredLength }} but has
+    {{ usernameRef.errors?.minlength.actualLength }} letters.
+  </div>
+
+  <button type="submit">Submit</button>
+</form>
+<div *ngIf="formRef.value">{{ formRef.value | json }}</div>
+Is valid this form: {{ formRef.valid }}
